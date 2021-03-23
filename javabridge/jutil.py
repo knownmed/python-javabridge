@@ -112,12 +112,14 @@ def _find_mac_lib(library):
 
     
     for extension in (".dylib", ".jnilib"):
+        print(library+extension)
+        logger.error(library+extension)
         try:
             for root, dirs, files in os.walk(jvm_dir):
                 for eachfile in files:
+                    print(os.path.join(root, eachfile))
+                    logger.error(os.path.join(root, eachfile))
                     if library+extension in eachfile:
-                        print(os.path.join(root, eachfile))
-                        logger.error(os.path.join(root, eachfile))
                         return(os.path.join(root, eachfile))
         except Exception as e:
             logger.error("Failed to execute \"%s\" when searching for %s" % 
