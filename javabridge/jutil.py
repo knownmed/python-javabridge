@@ -109,19 +109,15 @@ def _find_jvm_windows():
 
 def _find_mac_lib(library):
     jvm_dir = find_javahome()
+
+    
     for extension in (".dylib", ".jnilib"):
         try:
-            cmd = ["find", os.path.dirname(jvm_dir), "-name", library+extension]
-            logger.error(cmd)
-            result = subprocess.check_output(cmd)
-            if type(result) == bytes:
-                lines = result.decode('utf-8').split("\n")
-            else:
-                lines = result.split("\n")
-            logger.error(lines)
-            if len(lines) > 0 and len(lines[0]) > 0:
-                library_path = lines[0].strip()
-                return library_path
+            for root, dirs, files in os.walk(jvm_dir):
+                for eachfile in files:
+                    if library+extension in eachfile:
+                        print(os.path.join(root, eachfile))
+                        return(os.path.join(root, eachfile))
         except Exception as e:
             logger.error("Failed to execute \"%s\" when searching for %s" % 
                          (cmd, library), exc_info=1)
