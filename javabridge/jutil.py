@@ -117,6 +117,7 @@ def _find_mac_lib(library):
                 lines = result.decode('utf-8').split("\n")
             else:
                 lines = result.split("\n")
+            print(lines)
             if len(lines) > 0 and len(lines[0]) > 0:
                 library_path = lines[0].strip()
                 return library_path
