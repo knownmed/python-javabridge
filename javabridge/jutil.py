@@ -112,12 +112,13 @@ def _find_mac_lib(library):
     for extension in (".dylib", ".jnilib"):
         try:
             cmd = ["find", os.path.dirname(jvm_dir), "-name", library+extension]
+            logger.error(cmd)
             result = subprocess.check_output(cmd)
             if type(result) == bytes:
                 lines = result.decode('utf-8').split("\n")
             else:
                 lines = result.split("\n")
-            print(lines)
+            logger.error(lines)
             if len(lines) > 0 and len(lines[0]) > 0:
                 library_path = lines[0].strip()
                 return library_path
