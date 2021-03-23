@@ -117,6 +117,7 @@ def _find_mac_lib(library):
                 for eachfile in files:
                     if library+extension in eachfile:
                         print(os.path.join(root, eachfile))
+                        logger.error(os.path.join(root, eachfile))
                         return(os.path.join(root, eachfile))
         except Exception as e:
             logger.error("Failed to execute \"%s\" when searching for %s" % 
